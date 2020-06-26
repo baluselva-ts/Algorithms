@@ -11,9 +11,11 @@ void swap(int *inputArray, int left, int right);
 
 int main() {
 	int numberOfElements = 0;
+	cout << "Enter the array size: ";
 	cin >> numberOfElements;
 
 	int inputArray[numberOfElements];
+	cout << "Feed in the input values to search in: " << endl;
 	for (int i = 0; i < numberOfElements; i++) {
 		cin >> inputArray[i];
 	}

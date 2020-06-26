@@ -5,24 +5,26 @@
 
 using namespace std;
 
-void findMaxSubArray(int inputArray[], int inputSize);
+void findMaxSubArray(int inputArray[], int numberOfElements);
 
 int main() {
-	int inputSize = 0;
-	cin >> inputSize;
+	int numberOfElements = 0;
+	cout << "Enter the array size: ";
+	cin >> numberOfElements;
 
-	int inputArray[inputSize];
-	for (int i = 0; i < inputSize; i++) {
+	int inputArray[numberOfElements];
+	cout << "Feed in the input values to search in: " << endl;
+	for (int i = 0; i < numberOfElements; i++) {
 		cin >> inputArray[i];
 	}
-	findMaxSubArray(inputArray, inputSize);
+	findMaxSubArray(inputArray, numberOfElements);
 	return 0;
 }
 
-void findMaxSubArray(int inputArray[], int inputSize) {
+void findMaxSubArray(int inputArray[], int numberOfElements) {
 	int maxSum = INT_MIN, sum = 0, startIndex = 0, endIndex = 0, start = 0;
 
-	for (int i = 0; i < inputSize; i++) {
+	for (int i = 0; i < numberOfElements; i++) {
 		sum += inputArray[i];
 
 		if (sum > maxSum) {
