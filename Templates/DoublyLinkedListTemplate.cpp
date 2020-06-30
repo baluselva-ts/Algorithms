@@ -19,14 +19,6 @@ struct node *createNode(int value) {
 	return node;
 }
 
-struct node *createNode(int value, struct node *previousNode, struct node *nextNode) {
-	struct node *node = (struct node*)malloc(sizeof(struct node));
-	node -> value = value;
-	node -> previous = previousNode;
-	node -> next = nextNode;
-	return node;
-}
-
 int main() {
 	return 0;
 }

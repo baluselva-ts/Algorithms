@@ -6,24 +6,16 @@
 using namespace std;
 
 struct node{
-	int value;
+	int data;
 	struct node *left;
 	struct node *right;
 };
 
 struct node *createNode(int value) {
 	struct node *node = (struct node*)malloc(sizeof(struct node));
-	node -> value = value;
+	node -> data = data;
 	node -> left = NULL;
 	node -> right = NULL;
-	return node;
-}
-
-struct node *createNode(int value, struct *leftNode, struct *rightNode) {
-	struct node *node = (struct node*)malloc(sizeof(struct node));
-	node -> value = value;
-	node -> left = leftNode;
-	node -> right = rightNode;
 	return node;
 }
 

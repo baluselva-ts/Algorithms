@@ -17,13 +17,6 @@ struct node *createNode(int value) {
 	return node;
 }
 
-struct node *createNode(int value, struct node *nextNode) {
-	struct node *node = (struct node*)malloc(sizeof(struct node));
-	node -> data = value;
-	node -> next = nextNode;
-	return node;
-}
-
 struct node *createList(int listSize) {
 	int value = 0;
 	struct node *head, *temp, *newNode;
