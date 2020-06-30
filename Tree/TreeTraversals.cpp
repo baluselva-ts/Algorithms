@@ -14,6 +14,7 @@ struct node{
 	NODE left;
 	NODE right;
 	int horizontalDistance;
+	int level;
 };
 
 NODE createNode(int value) {
@@ -22,6 +23,7 @@ NODE createNode(int value) {
 	node -> left = NULL;
 	node -> right = NULL;
 	node -> horizontalDistance = 0;
+	node -> level = 0;
 	return node;
 }
 
@@ -49,7 +51,7 @@ void traversePostorder(NODE root) {
 	cout << root -> data << " ";
 }
 
-void traversetraversalQueue(NODE root) {
+void traverseLevelOrder(NODE root) {
 	if(!root)
 		return;
 
@@ -63,6 +65,48 @@ void traversetraversalQueue(NODE root) {
 		cout << (traversalQueue.front()) -> data << " ";
 		traversalQueue.pop();
 	}
+}
+
+map< int, vector<int> > groupNodesByLevel(NODE root) {
+	map< int, vector<int> > nodesAtEachLevel;
+	if (root) {
+		queue<NODE> traversalQueue;
+		traversalQueue.push(root);
+		while (traversalQueue.size()) {
+			NODE front = traversalQueue.front();
+			if(front -> left) {
+				front -> left -> level = (front -> level) + 1;
+				traversalQueue.push(front -> left);
+			}
+			if(front -> right) {
+				front -> right -> level = (front -> level) + 1;
+				traversalQueue.push(front -> right);
+			}
+			nodesAtEachLevel[front -> level].push_back(front -> data);
+			traversalQueue.pop();
+		}
+	}
+	return nodesAtEachLevel;
+}
+
+void traverseLevelOrderSpiral(NODE root) {
+	map< int, vector<int> > nodeMap = groupNodesByLevel(root);
+	
+	for (map< int, vector<int> >::iterator itr = nodeMap.begin(); itr != nodeMap.end(); itr++) {
+		vector<int> nodesAtThisLevel = itr -> second;
+		int numberOfNodes = nodesAtThisLevel.size();
+
+		if ((itr -> first) % 2 == 1)
+			reverse(nodesAtThisLevel.begin(), nodesAtThisLevel.end());
+		
+		for (int i = 0; i < numberOfNodes; i++) {
+			cout << nodesAtThisLevel[i] << " ";
+		}
+		// if (next(itr, 1) != nodeMap.end()) {
+		// 	cout << "$ ";
+		// } 
+	}
+
 }
 
 bool needsToBePrinted(int i, int size, string type) {
@@ -197,7 +241,11 @@ void traverse(NODE root) {
 	cout << endl;
 
 	cout << "Level - Order: ";
-	traversetraversalQueue(root);
+	traverseLevelOrder(root);
+	cout << endl;
+
+	cout << "Level - Order Spiral: ";
+	traverseLevelOrderSpiral(root);
 	cout << endl;
 
 	cout << "Vertical - Order: ";
