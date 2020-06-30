@@ -59,5 +59,22 @@ int main() {
 	cout << "Height of Tree: " << getHeight(root);
 	cout << endl;
 
+	root = createNode(1);
+	root -> left = createNode(2);
+	root -> left -> left = createNode(3);
+	root -> right = createNode(4);
+	root -> right -> right = createNode(8);
+	root -> right -> left = createNode(5);
+	root -> right -> left -> right = createNode(6);
+	root -> right -> left -> right -> right = createNode(7);
+	root -> right -> left -> right -> right -> left = createNode(12);
+	root -> right -> left -> right -> right -> left -> right = createNode(13);
+	root -> right -> left -> right -> right -> left -> right -> left = createNode(14);
+	root -> right -> right -> right = createNode(9);
+	root -> right -> right -> right -> left = createNode(10);
+	root -> right -> right -> right -> left -> right = createNode(11);
+	cout << "Height of Tree: " << getHeight(root);
+	cout << endl;
+
 	return 0;
 }
