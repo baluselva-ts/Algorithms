@@ -41,4 +41,24 @@ int main() {
 	root -> right -> right = createNode(7);
 	isBST(root, INT_MIN, INT_MAX) ? cout << "Valid BST" : cout << "Not a valid BST";
 	cout << endl;
+
+	root = createNode(1);
+	root -> right = createNode(2);
+	root -> right -> right = createNode(3);
+	root -> right -> right -> right = createNode(4);
+	root -> right -> right -> right -> right = createNode(5);
+	root -> right -> right -> right -> right -> right = createNode(6);
+	root -> right -> right -> right -> right -> right -> right = createNode(7);
+	isBST(root, INT_MIN, INT_MAX) ? cout << "Valid BST" : cout << "Not a valid BST";
+	cout << endl;
+
+	root = createNode(3);
+	root -> left = createNode(1);
+	root -> left -> right = createNode(2);
+	root -> right = createNode(5);
+	root -> right -> left = createNode(4);
+	root -> right -> right = createNode(7);
+	root -> right -> right -> left = createNode(6);
+	isBST(root, INT_MIN, INT_MAX) ? cout << "Valid BST" : cout << "Not a valid BST";
+	cout << endl;
 }

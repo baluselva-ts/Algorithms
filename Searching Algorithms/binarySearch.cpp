@@ -99,9 +99,8 @@ int binarySearchRecursive(int *inputArray, int elementToSearch, int start, int e
 		} else {
 			binarySearchRecursive(inputArray, elementToSearch, start, mid - 1);
 		}
-	} else {
-		return -1;
 	}
+	return -1;
 }
 
 

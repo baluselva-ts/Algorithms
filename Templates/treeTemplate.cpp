@@ -20,6 +20,41 @@ struct node *createNode(int value) {
 	return node;
 }
 
+void placeHolder(NODE root) {
+	
+}
+
 int main() {
+
+	NODE root = createNode(4);
+	root -> left = createNode(2);
+	root -> right = createNode(6);
+	root -> left -> left = createNode(1);
+	root -> left -> right = createNode(3);
+	root -> right -> left = createNode(5);
+	root -> right -> right = createNode(7);
+	placeHolder(root);
+	cout << endl;
+
+	root = createNode(1);
+	root -> right = createNode(2);
+	root -> right -> right = createNode(3);
+	root -> right -> right -> right = createNode(4);
+	root -> right -> right -> right -> right = createNode(5);
+	root -> right -> right -> right -> right -> right = createNode(6);
+	root -> right -> right -> right -> right -> right -> right = createNode(7);
+	placeHolder(root);
+	cout << endl;
+
+	root = createNode(3);
+	root -> left = createNode(1);
+	root -> left -> right = createNode(2);
+	root -> right = createNode(5);
+	root -> right -> left = createNode(4);
+	root -> right -> right = createNode(7);
+	root -> right -> right -> left = createNode(6);
+	placeHolder(root);
+	cout << endl;
+
 	return 0;
 }
