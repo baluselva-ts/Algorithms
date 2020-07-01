@@ -1,4 +1,4 @@
-//https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+//https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -33,21 +33,29 @@ void printAdjacencyMatrix(map<int, vector<int> >adjacencyMatrix, int numberOfVer
 	}
 }
 
-void traverseDepthFirst(map<int, vector<int> >adjacencyMatrix, vector<int> &isVisited, int i) {
-	isVisited[i] = 1;
-	cout << i << " ";
-	if (adjacencyMatrix.find(i) != adjacencyMatrix.end()) {
-		for (auto vertex: adjacencyMatrix[i])
-			if (!isVisited[vertex])
-				traverseDepthFirst(adjacencyMatrix, isVisited, vertex);
-	}
-}
+void traverseBreathFirst(map<int, vector<int> >adjacencyMatrix, int numberOfVertices) {
+	vector<bool> isVisited(numberOfVertices);
+	queue<int> traversedVertices;
 
-void traverseDepthFirst(map<int, vector<int> >adjacencyMatrix, int numberOfVertices) {
-	vector<int> isVisited(numberOfVertices);
+	// for (int i = numberOfVertices - 1; i >= 0; i--) {
 	for (int i = 0; i < numberOfVertices; i++) {
 		if (!isVisited[i]) {
-			traverseDepthFirst(adjacencyMatrix, isVisited, i);
+			traversedVertices.push(i);
+			isVisited[traversedVertices.front()] = 1;
+
+			while (traversedVertices.size()) {
+				vector<int> adjacentVertices = adjacencyMatrix[traversedVertices.front()];
+				// sort(adjacentVertices.begin(), adjacentVertices.end(), greater<int>());
+				sort(adjacentVertices.begin(), adjacentVertices.end());
+				for (auto vertex: adjacentVertices) {
+					if (!isVisited[vertex]) {
+						traversedVertices.push(vertex);
+						isVisited[vertex] = 1;						
+					}
+				}
+				cout << traversedVertices.front() << " ";
+				traversedVertices.pop();
+			}
 		}
 	}
 	cout << endl;
@@ -61,10 +69,9 @@ int main() {
 	cout << "Enter number of Edges: ";
 	cin >> numberOfEdges;
 	getEdges(adjacencyMatrix, numberOfEdges);
-	printAdjacencyMatrix(adjacencyMatrix, numberOfVertices);
-
-	cout << "DFS: ";
-	traverseDepthFirst(adjacencyMatrix, numberOfVertices);
+	
+	cout << "BFS: ";
+	traverseBreathFirst(adjacencyMatrix, numberOfVertices);
 
 	return 0;
 }
