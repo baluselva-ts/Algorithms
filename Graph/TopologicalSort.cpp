@@ -36,7 +36,10 @@ void printAdjacencyMatrix(map<int, vector<int> >adjacencyMatrix, int numberOfVer
 void traverseDepthFirst(map<int, vector<int> >adjacencyMatrix, vector<int> &isVisited, int i) {
 	isVisited[i] = 1;
 	if (adjacencyMatrix.find(i) != adjacencyMatrix.end()) {
-		for (auto vertex: adjacencyMatrix[i])
+		vector<int> adjacentNodes = adjacencyMatrix[i];
+		// sort(adjacentNodes.begin(), adjacentNodes.end(), greater<int>());
+		sort(adjacentNodes.begin(), adjacentNodes.end());
+		for (auto vertex: adjacentNodes)
 			if (!isVisited[vertex])
 				traverseDepthFirst(adjacencyMatrix, isVisited, vertex);
 	}
@@ -45,11 +48,9 @@ void traverseDepthFirst(map<int, vector<int> >adjacencyMatrix, vector<int> &isVi
 
 void traverseDepthFirst(map<int, vector<int> >adjacencyMatrix, int numberOfVertices) {
 	vector<int> isVisited(numberOfVertices);
-	for (int i = 0; i < numberOfVertices; i++) {
-		if (!isVisited[i]) {
+	for (int i = 0; i < numberOfVertices; i++)
+		if (!isVisited[i])
 			traverseDepthFirst(adjacencyMatrix, isVisited, i);
-		}
-	}
 	cout << endl;
 }
 
@@ -63,7 +64,7 @@ int main() {
 	getEdges(adjacencyMatrix, numberOfEdges);
 	printAdjacencyMatrix(adjacencyMatrix, numberOfVertices);
 
-	cout << "DFS: ";
+	cout << "Topological Order: ";
 	traverseDepthFirst(adjacencyMatrix, numberOfVertices);
 
 	return 0;
