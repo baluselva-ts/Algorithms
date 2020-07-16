@@ -31,4 +31,5 @@ int main() {
 		}
 	}
 	cout << inputString << endl;
+	return 0;
 }
