@@ -23,7 +23,7 @@ void getLCSIterative(string firstString, string secondString) {
 				table[i][j] = MAX(MAX(getTableValue(table, i, j - 1), getTableValue(table, i - 1, j)), getTableValue(table, i - 1, j - 1));
 		}
 	}
-	cout << "Length of longest common subsequence: " << table[firstString.length() - 1][secondString.length() - 1] << endl;
+	cout << "Length of longest palindromic subsequence: " << table[firstString.length() - 1][secondString.length() - 1] << endl;
 }
 
 int main () {
