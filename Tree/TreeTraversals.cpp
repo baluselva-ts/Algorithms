@@ -14,6 +14,7 @@ struct node{
 	NODE left;
 	NODE right;
 	int horizontalDistance;
+	int slopeDistance;
 	int level;
 };
 
@@ -23,6 +24,7 @@ NODE createNode(int value) {
 	node -> left = NULL;
 	node -> right = NULL;
 	node -> horizontalDistance = 0;
+	node -> slopeDistance = 0;
 	node -> level = 0;
 	return node;
 }
@@ -140,7 +142,7 @@ map< int, vector<int> > groupNodesByHorizontalDistance(NODE root) {
 	return nodesAtHorizontalDistance;
 }
 
-void printNodesInVerticalOrder(map< int, vector<int> > nodeMap, string view) {
+void printBucketedNodes(map< int, vector<int> > nodeMap, string view) {
 	map< int, vector<int> >::iterator itr;
 
 	for (map< int, vector<int> >::iterator itr = nodeMap.begin(); itr != nodeMap.end(); itr++) {
@@ -156,7 +158,37 @@ void printNodesInVerticalOrder(map< int, vector<int> > nodeMap, string view) {
 }
 
 void traverseVerticalorder(NODE root) {
-	printNodesInVerticalOrder(groupNodesByHorizontalDistance(root), "");
+	printBucketedNodes(groupNodesByHorizontalDistance(root), "");
+}
+
+map< int, vector<int> > groupNodesBySlopeDistance(NODE root, string type) {
+	map< int, vector<int> > nodesAtSameSlopeDistance;
+	if (root) {
+		queue<NODE> traversalQueue;
+		traversalQueue.push(root);
+		while (traversalQueue.size()) {
+			NODE front = traversalQueue.front();
+			if(front -> left) {
+				front -> left -> slopeDistance = (front -> slopeDistance) + (type != "DIAGONAL");
+				traversalQueue.push(front -> left);
+			}
+			if(front -> right) {
+				front -> right -> slopeDistance = (front -> slopeDistance) + (type != "ANTI-DIAGONAL");
+				traversalQueue.push(front -> right);
+			}
+			nodesAtSameSlopeDistance[front -> slopeDistance].push_back(front -> data);
+			traversalQueue.pop();
+		}
+	}
+	return nodesAtSameSlopeDistance;
+}
+
+void traverseDiagonalOrder(NODE root) {
+	printBucketedNodes(groupNodesBySlopeDistance(root, "DIAGONAL"), "");
+}
+
+void traverseAntiDiagonalOrder(NODE root) {
+	printBucketedNodes(groupNodesBySlopeDistance(root, "ANTI-DIAGONAL"), "");
 }
 
 void printLeftView(NODE root) {
@@ -220,11 +252,11 @@ void printRightView(NODE root) {
 }
 
 void printTopView(NODE root) {
-	printNodesInVerticalOrder(groupNodesByHorizontalDistance(root), "TOP");
+	printBucketedNodes(groupNodesByHorizontalDistance(root), "TOP");
 }
 
 void printBottomView(NODE root) {
-	printNodesInVerticalOrder(groupNodesByHorizontalDistance(root), "BOTTOM");
+	printBucketedNodes(groupNodesByHorizontalDistance(root), "BOTTOM");
 }
 
 void traverse(NODE root) {
@@ -250,6 +282,14 @@ void traverse(NODE root) {
 
 	cout << "Vertical - Order: ";
 	traverseVerticalorder(root);
+	cout << endl;
+
+	cout << "Diagonal - Order: ";
+	traverseDiagonalOrder(root);
+	cout << endl;
+
+	cout << "Anti Diagonal - Order: ";
+	traverseAntiDiagonalOrder(root);
 	cout << endl;
 
 	cout << "Left - View: ";
