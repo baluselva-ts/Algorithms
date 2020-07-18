@@ -1,4 +1,4 @@
-//https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
+//https://www.geeksforgeeks.org/longest-palindromic-subsequence-dp-12/
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,19 +6,6 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 using namespace std;
-
-int getLCSRecursive(string firstString, string secondString, int firstPointer, int secondPointer) {
-	if (firstPointer >= firstString.length() || secondPointer >= secondString.length())
-		return 0;
-	if (firstString[firstPointer] == secondString[secondPointer])
-		return 1 + getLCSRecursive(firstString, secondString, firstPointer + 1, secondPointer + 1);
-	else
-		return MAX(
-			getLCSRecursive(firstString, secondString, firstPointer, secondPointer + 1),
-			getLCSRecursive(firstString, secondString, firstPointer + 1, secondPointer)
-		);
-}
-
 
 int getTableValue(vector< vector<int> > table, int i, int j) {
 	if (i < 0 || j < 0)
@@ -39,14 +26,12 @@ void getLCSIterative(string firstString, string secondString) {
 	cout << "Length of longest common subsequence: " << table[firstString.length() - 1][secondString.length() - 1] << endl;
 }
 
-int main() {
-	string firstString, secondString;
-	cout << "Enter the input strings: ";
-	cin >> firstString >> secondString;
+int main () {
+	string firstString;
+	cout << "Enter the input string: ";
+	cin >> firstString;
 
-	cout << "Length of longest common subsequence: " << getLCSRecursive(firstString, secondString, 0, 0) << endl;
+	getLCSIterative(firstString, string(firstString.rbegin(), firstString.rend()));
 
-	getLCSIterative(firstString, secondString);
-	
 	return 0;
 }
