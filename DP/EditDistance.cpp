@@ -1,8 +1,10 @@
 //https://www.geeksforgeeks.org/edit-distance-dp-5/
 #include <iostream>
 #include <vector>
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
+#define MIN2(a,b) (((a)<(b))?(a):(b))
+#define MAX2(a,b) (((a)>(b))?(a):(b))
+#define MIN3(a,b,c) (((a)<(b)&&(a)<(c))?(a):((b)<(a)&&(b)<(c))?(b):(c))
+#define MAX3(a,b,c) (((a)>(b)&&(a)>(c))?(a):((b)>(a)&&(b)>(c))?(b):(c))
 using namespace std;
 
 void print2DVector(vector < vector <int> > table) {
@@ -27,7 +29,7 @@ int getEditDistance(string firstString, string secondString) {
 			else if (firstString[i - 1] == secondString[j - 1])
 				table[i][j] = table[i - 1][j - 1];
 			else
-				table[i][j] = 1 + MIN(table[i][j - 1], MIN(table[i - 1][j - 1], table[i - 1][j]));
+				table[i][j] = 1 + MIN3(table[i][j - 1], table[i - 1][j - 1], table[i - 1][j]);
 		}
 	}
 	return table[lengthA][lengthB];
