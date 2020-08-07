@@ -15,12 +15,12 @@ void getMaxProfitDays(vector<int> inputArray, int inputSize) {
 
 	for (i = 0; i < inputSize - 1; i++) {
 		if (inputArray[i] > inputArray[i + 1]) {
-			if (i - start > 1)
+			if (i - start >= 1)
 				cout << start << " -> " << i << endl;
 			start = i + 1;
 		}
 	}
-	if (i - start > 1)
+	if (i - start >= 1)
 		cout << start << " -> " << i << endl;
 }
 
